@@ -50,15 +50,14 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 ## Data Preparation
 
 
-- Menggabungkan Data Restoran: Untuk membentuk dataset restoran yang komprehensif agar sistem dapat mempertimbangkan berbagai fitur restoran.
-- Menggabungkan Data Pengguna: Untuk membentuk dataset pengguna yang komprehensif agar sistem dapat memahami preferensi dan karakteristik pengguna.
-- Menggabungkan Data Rating: Untuk menghubungkan rating pengguna dengan restoran dan pengguna yang sesuai, sehingga sistem dapat mempelajari pola preferensi.
-- Membersihkan Data:
-  Missing Values: Untuk mencegah kesalahan dalam pemodelan dan mengurangi akurasi rekomendasi.
-  Data Duplikat: Untuk mencegah bias dalam pemodelan dan menghasilkan rekomendasi yang akurat.
-  Penyamaan Jenis Masakan: Untuk memastikan konsistensi data dan mencegah sistem menganggap       jenis masakan yang sama sebagai entitas yang berbeda.
-- Encoding Data: Untuk mengubah data kategorikal menjadi numerik agar dapat diproses oleh model   machine learning (khusus Collaborative Filtering).
-- Normalisasi Data: Untuk meningkatkan kinerja model dan mencegah bias akibat perbedaan skala     antar fitur (khusus Collaborative Filtering).
+1. Menggabungkan Data Restoran: Untuk membentuk dataset restoran yang komprehensif agar sistem dapat mempertimbangkan berbagai fitur restoran.
+2. Menggabungkan Data Pengguna: Untuk membentuk dataset pengguna yang komprehensif agar sistem dapat memahami preferensi dan karakteristik pengguna.
+3. Menggabungkan Data Rating: Untuk menghubungkan rating pengguna dengan restoran dan pengguna yang sesuai, sehingga sistem dapat mempelajari pola preferensi.
+4. Missing Values: Untuk mencegah kesalahan dalam pemodelan dan mengurangi akurasi rekomendasi.
+5. Data Duplikat: Untuk mencegah bias dalam pemodelan dan menghasilkan rekomendasi yang akurat.
+6. Penyamaan Jenis Masakan: Untuk memastikan konsistensi data dan mencegah sistem menganggap jenis masakan yang sama sebagai entitas yang berbeda.
+7. Encoding Data: Untuk mengubah data kategorikal menjadi numerik agar dapat diproses oleh model machine learning (khusus Collaborative Filtering).
+8. Normalisasi Data: Untuk meningkatkan kinerja model dan mencegah bias akibat perbedaan skala antar fitur (khusus Collaborative Filtering).
 
   
 ## Modeling
