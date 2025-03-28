@@ -146,12 +146,7 @@ Model 2: Collaborative Filtering
 
 ### 1. Content-Based Filtering
 
-| Restoran Input | Rekomendasi | Relevansi | 
-|---|---|---|
-| KFC | Wendy's, McDonald's, Burger King, Sanborns Cafe, Vips | Relevan (Kategori Masakan: American) |
-| El Rincon de San Francisco | Restaurant Los Equipales, Gorditas Doña Tota, Gorditas Doa Gloria,  Mariscos Tia Licha,  Paniroles | Relevan (Kategori Masakan: Mexican) |
-| ... | ... | ... |
-
+![Hasil Content-Based Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Hasil%20Content-Based%20Filtering)
 
 ### 2. Collaborative Filtering
 
