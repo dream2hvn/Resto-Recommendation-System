@@ -7,9 +7,8 @@
 **Mengapa dan Bagaimana Masalah Harus Diselesaikan:** Sistem rekomendasi dapat meningkatkan pengalaman pengguna dengan memberikan saran restoran berdasarkan ulasan, rating, dan preferensi individu. Dengan pendekatan berbasis machine learning, sistem ini dapat secara otomatis menyesuaikan rekomendasi seiring dengan perubahan preferensi pengguna, sehingga meningkatkan kepuasan pelanggan dan potensi peningkatan pendapatan bagi restoran yang direkomendasikan.
 
 **Referensi**:
-- [Restaurant & consumer data](https://archive.ics.uci.edu/dataset/232/restaurant+consumer+data) 
 
-- [Restaurant Recommendation System Based on User Ratings with Collaborative Filtering](https://www.researchgate.net/publication/350084914_Restaurant_Recommendation_System_Based_on_User_Ratings_with_Collaborative_Filtering)
+[Restaurant Recommendation System Based on User Ratings with Collaborative Filtering](https://www.researchgate.net/publication/350084914_Restaurant_Recommendation_System_Based_on_User_Ratings_with_Collaborative_Filtering)
 
 ## Business Understanding
 
@@ -31,24 +30,34 @@ Dalam proyek ini, digunakan dua metode pendekatan:
 - Content-Based Filtering: Menggunakan informasi restoran untuk menentukan rekomendasi.
 
 ## Data Understanding
-Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository dengan nama "Restaurant & Consumer Data". Data terdiri dari informasi tentang restoran, pengguna, dan rating yang diberikan pengguna terhadap restoran.
+Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository dengan nama "Restaurant & Consumer Data". Data terdiri dari informasi tentang restoran, pengguna, dan rating yang diberikan pengguna terhadap restoran. Dataset dapat diakses [disini](https://archive.ics.uci.edu/dataset/232/restaurant+consumer+data)
 
+### Data Preview
 
 ![Data Review](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Review%20Data)
 
+### Feature On Modelling Process:
+- userID: ID unik yang diberikan kepada setiap pengguna dalam sistem. Digunakan untuk mengidentifikasi dan melacak preferensi pengguna.
 
-### Variabel dalam dataset:
-- userID: ID unik untuk setiap pengguna.
-- placeID: ID unik untuk setiap restoran.
-- rating: Rating keseluruhan yang diberikan pengguna terhadap restoran (skala 1-3).
-- food_rating: Rating makanan yang diberikan pengguna terhadap restoran (skala 1-3).
-- service_rating: Rating layanan yang diberikan pengguna terhadap restoran (skala 1-3).
-- user: ID pengguna yang di-encode ke dalam indeks integer.
-- resto: ID restoran yang di-encode ke dalam indeks integer.
+- placeID: ID unik yang diberikan kepada setiap restoran dalam sistem. Digunakan untuk mengidentifikasi dan menghubungkan restoran dengan rating pengguna.
 
+- rating: Rating keseluruhan yang diberikan oleh pengguna untuk sebuah restoran, dalam skala 1 hingga 2. Merupakan indikator kepuasan pengguna secara umum.
+
+- food_rating: Rating khusus untuk makanan yang disajikan di restoran, dalam skala 1 hingga 2. Mencerminkan kualitas dan rasa makanan.
+
+- service_rating: Rating khusus untuk layanan yang diberikan di restoran, dalam skala 1 hingga 2. Mencerminkan kualitas pelayanan dan pengalaman pelanggan.
+
+- name: Nama restoran. Digunakan untuk mengidentifikasi dan menampilkan restoran kepada pengguna dalam hasil rekomendasi.
+
+- Rcuisine: Jenis masakan yang ditawarkan oleh restoran (misalnya, Italia, Jepang, dll.). Digunakan untuk mengelompokkan restoran berdasarkan kesamaan konten dan merekomendasikan restoran serupa kepada pengguna.
+
+### Data Preprocessing/ Checking
+
+- Missing Value: Terdapat banyak missing value pada sebagian besar fitur. Hanya fitur userID, placeID, rating, food_rating, dan service_rating saja yang memiliki 0 missing value. Fitur-fitur lain, seperti Rcuisine, memiliki missing value dalam jumlah yang signifikan.
+- Data Duplikat: Terdapat data duplikat pada beberapa fitur, seperti placeID. Data duplikat ini perlu dihapus untuk menghindari bias dalam data.
+- Inkonsistensi Data: Terdapat inkonsistensi data pada beberapa fitur, seperti Rcuisine. Misalnya, restoran KFC memiliki dua kategori masakan yang berbeda, yaitu Game dan American. Inkonsistensi data ini perlu diperbaiki agar data menjadi lebih konsisten.
 
 ## Data Preparation
-
 
 1. Menggabungkan Data Restoran: Untuk membentuk dataset restoran yang komprehensif agar sistem dapat mempertimbangkan berbagai fitur restoran.
 2. Menggabungkan Data Pengguna: Untuk membentuk dataset pengguna yang komprehensif agar sistem dapat memahami preferensi dan karakteristik pengguna.
@@ -58,11 +67,8 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 6. Penyamaan Jenis Masakan: Untuk memastikan konsistensi data dan mencegah sistem menganggap jenis masakan yang sama sebagai entitas yang berbeda.
 7. Encoding Data: Untuk mengubah data kategorikal menjadi numerik agar dapat diproses oleh model machine learning (khusus Collaborative Filtering).
 8. Normalisasi Data: Untuk meningkatkan kinerja model dan mencegah bias akibat perbedaan skala antar fitur (khusus Collaborative Filtering).
-
   
 ## Modeling
-
-
 ### Model 1: Content-Based Filtering
 Content-Based Filtering digunakan untuk merekomendasikan restoran berdasarkan kesamaan fitur dengan preferensi pengguna, seperti jenis masakan. Metode ini memanfaatkan representasi fitur dari setiap restoran dan preferensi pengguna untuk menghitung kesamaan dan menghasilkan rekomendasi. Dalam proyek ini, Content-Based Filtering dipilih karena kesederhanaannya dan kemampuannya untuk merekomendasikan item baru yang belum pernah dinilai pengguna.
 
