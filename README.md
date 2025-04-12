@@ -146,15 +146,15 @@ Collaborative Filtering digunakan untuk merekomendasikan restoran berdasarkan ra
 
   1.Model Development with Neural Networks
 
-Membangun class RecommenderNet menggunakan Keras Model class yang terdiri dari embedding layer untuk userID dan placeID serta bias layer masing-masingnya.
+  Membangun class RecommenderNet menggunakan Keras Model class yang terdiri dari embedding layer untuk userID dan placeID serta bias layer masing-masingnya.
   
   2.Training the Model
 
-Melatih model menggunakan data training selama sejumlah epoch tertentu sambil memonitor metrik RMSE pada set validasi.
-  
-  3. Generating Recommendations for Users
+  Melatih model menggunakan data training selama sejumlah epoch tertentu sambil memonitor metrik RMSE pada set validasi.
 
-Mendapatkan daftar resto_not_visited oleh pengguna target kemudian memprediksi rating potensial mereka terhadap resto-resto tersebut menggunakan model terlatih.
+  3.Generating Recommendations for Users
+
+  Mendapatkan daftar resto_not_visited oleh pengguna target kemudian memprediksi rating potensial mereka terhadap resto-resto tersebut menggunakan model terlatih.
 
 - Parameter:
   1. Embedding Layers in Neural Network Model:
@@ -189,6 +189,7 @@ Model 2: Collaborative Filtering
 - Melalui pengamatan hasil rekomendasi: Dengan memberikan input nama restoran, sistem akan memberikan rekomendasi restoran lain yang memiliki kesamaan fitur (jenis masakan).
 - Membandingkan rekomendasi dengan preferensi pengguna: Pengguna dapat menilai relevansi rekomendasi yang dihasilkan berdasarkan pengetahuan mereka tentang preferensi pengguna yang diwakili oleh restoran input.
 - Presisi, mengukur seberapa banyak rekomendasi yang relevan dibandingkan dengan total rekomendasi yang diberikan.
+- Rumus Presisi = #rekomendasi yang relevan/ #barang yang kami rekomendasikan
 
 2. Metode Evaluasi Content-Based Filtering dilakukan menggunakan metrik RMSE:
 - RMSE mengukur rata-rata perbedaan antara rating yang diprediksi oleh model dan rating aktual yang diberikan oleh pengguna. Semakin rendah nilai RMSE, semakin akurat model dalam memprediksi rating.
