@@ -53,6 +53,7 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 
 ### Data Preprocessing/ Checking
 
+- Menggabungkan Data: Informasi restoran dan pengguna dari berbagai file CSV digabungkan menjadi satu dataframe. Data rating juga digabungkan dengan informasi restoran (nama, masakan) untuk memperkaya data.
 - Missing Value: Terdapat banyak missing value pada sebagian besar fitur. Hanya fitur userID, placeID, rating, food_rating, dan service_rating saja yang memiliki 0 missing value. Fitur-fitur lain, seperti Rcuisine, memiliki missing value dalam jumlah yang signifikan.
 - Data Duplikat: Terdapat data duplikat pada beberapa fitur, seperti placeID. Data duplikat ini perlu dihapus untuk menghindari bias dalam data.
 - Inkonsistensi Data: Terdapat inkonsistensi data pada beberapa fitur, seperti Rcuisine. Misalnya, restoran KFC memiliki dua kategori masakan yang berbeda, yaitu Game dan American. Inkonsistensi data ini perlu diperbaiki agar data menjadi lebih konsisten.
@@ -98,6 +99,20 @@ Penjelasan:
   2.	List tersebut digunakan untuk membuat dictionary resto_new dengan 'id', 'resto_name', dan 'cuisine' sebagai key.
   3.	Dictionary resto_new digunakan sebagai input untuk pemodelan content-based filtering.
 
+
+3.Collaborative Filtering Preparation
+- Encode Label
+
+Penjelasan:
+Fitur 'user' dan 'placeID' diubah menjadi index integer agar dapat diproses oleh model collaborative filtering.
+  1.	Encoding dilakukan menggunakan dictionary, di mana setiap 'userID' dan 'placeID' unik dipetakan ke index integer.
+  2.	Data yang telah di-encode digunakan untuk proses training model.
+- Split Data
+
+Penjelasan:
+Data dibagi menjadi data train dan data validasi dengan komposisi 80:20.
+  1.	Pembagian data dilakukan untuk mengevaluasi performa model.
+  2.	Data train digunakan untuk melatih model, sedangkan data validasi digunakan untuk mengukur kemampuan model dalam memprediksi data yang belum pernah dilihat sebelumnya.
   
 ## Modeling
 ### Model 1: Content-Based Filtering
