@@ -116,49 +116,62 @@ Data dibagi menjadi data train dan data validasi dengan komposisi 80:20.
   
 ## Modeling
 ### Model 1: Content-Based Filtering
-Content-Based Filtering digunakan untuk merekomendasikan restoran berdasarkan kesamaan fitur dengan preferensi pengguna, seperti jenis masakan. Metode ini memanfaatkan representasi fitur dari setiap restoran dan preferensi pengguna untuk menghitung kesamaan dan menghasilkan rekomendasi. Dalam proyek ini, Content-Based Filtering dipilih karena kesederhanaannya dan kemampuannya untuk merekomendasikan item baru yang belum pernah dinilai pengguna.
+Content-Based Filtering digunakan untuk merekomendasikan restoran berdasarkan kesamaan fitur dengan preferensi pengguna, seperti jenis masakan. Metode ini memanfaatkan representasi fitur dari setiap restoran dan preferensi pengguna untuk menghitung kesamaan dan menghasilkan rekomendasi. Dalam proyek ini, Content-Based Filtering dipilih karena kesederhanaan dan kemampuannya untuk merekomendasikan item baru yang belum pernah dinilai pengguna.
 
+- Langkah-langkah Content-Based Filtering:
 
-Langkah-langkah Content-Based Filtering:
+  1. Cosine Similarity:
+Digunakan untuk menghitung derajat kesamaan (similarity degree) antar restoran berdasarkan representasi fitur mereka. Menghasilkan matriks kesamaan yang menunjukkan seberapa mirip setiap restoran dengan restoran lainnya.
 
-
-1. TF-IDF Vectorizer:
-Digunakan untuk mengidentifikasi representasi fitur penting dari setiap kategori masakan.
-Mengubah data teks (kategori masakan) menjadi representasi numerik yang dapat diproses oleh model.
-
-2. Cosine Similarity:
-Digunakan untuk menghitung derajat kesamaan (similarity degree) antar restoran berdasarkan representasi fitur mereka.
-Menghasilkan matriks kesamaan yang menunjukkan seberapa mirip setiap restoran dengan restoran lainnya.
-
-3. Rekomendasi:
+  2. Rekomendasi:
 Berdasarkan matriks kesamaan, sistem merekomendasikan restoran yang paling mirip dengan preferensi pengguna. Restoran dengan kesamaan tertinggi akan direkomendasikan terlebih dahulu.
+
+- Parameter:
+  1. TF-IDF Vectorizer: Digunakan untuk mengubah jenis masakan menjadi vektor numerik. Parameter default digunakan dalam tahapan ini.
+  2. Cosine Similarity: Digunakan untuk menghitung kemiripan antar restoran.
+  3. Fungsi resto_recommendations: 
+    - nama_resto: Nama restoran yang digunakan sebagai acuan.
+    - similarity_data: Dataframe kemiripan antar restoran.
+    - items: Dataframe nama dan fitur restoran.
+    - k: Jumlah rekomendasi (default=5).
+  4. Top-N recommendation
+
+![Recommendation Content Based Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Recommendation%20Content%20Based%20Filtering)
 
 
 ### Model 2: Collaborative Filtering
 Collaborative Filtering digunakan untuk merekomendasikan restoran berdasarkan rating pengguna lain yang memiliki preferensi serupa. Metode ini memanfaatkan data rating pengguna untuk mengidentifikasi pola preferensi dan menghasilkan rekomendasi. Dalam proyek ini, Collaborative Filtering dipilih karena kemampuannya untuk memberikan rekomendasi yang personal dan akurat.
 
+- Langkah-langkah Collaborative Filtering:
 
-Langkah-langkah Collaborative Filtering:
+  1.Model Development with Neural Networks
 
-
-1. Data Encoding:
-Mengubah userID dan placeID menjadi indeks integer menggunakan teknik encoding.
-Memudahkan pemrosesan data oleh model machine learning.
-
-2. Normalisasi Data:
-Menskalakan nilai rating ke dalam rentang 0 hingga 1 menggunakan min-max scaling.
-Meningkatkan kinerja model dan mencegah bias akibat perbedaan skala antar fitur.
-
-3. Model Training:
-Menggunakan model RecommenderNet yang dibangun dengan Keras.
-Model dilatih menggunakan data rating pengguna untuk mempelajari pola preferensi.
-
-4. Rekomendasi:
-Berdasarkan pola preferensi yang dipelajari, model memprediksi rating pengguna terhadap restoran yang belum pernah dikunjungi.Restoran dengan prediksi rating tertinggi akan direkomendasikan.
-
+Membangun class RecommenderNet menggunakan Keras Model class yang terdiri dari embedding layer untuk userID dan placeID serta bias layer masing-masingnya.
   
-**Kelebihan dan Kekurangan:**
+  2.Training the Model
 
+Melatih model menggunakan data training selama sejumlah epoch tertentu sambil memonitor metrik RMSE pada set validasi.
+  
+  3. Generating Recommendations for Users
+
+Mendapatkan daftar resto_not_visited oleh pengguna target kemudian memprediksi rating potensial mereka terhadap resto-resto tersebut menggunakan model terlatih.
+
+- Parameter:
+  1. Embedding Layers in Neural Network Model:
+  - User Embedding Layer: Untuk menyandikan informasi pengguna ke dalam vektor numerik berdimensi tetap (embedding_size).
+  - Resto Embedding Layer: Untuk menyandikan informasi resto ke dalam vektor numerik berdimensi tetap (embedding_size).
+  2. Hyperparameters for Model Training
+  - batch_size: Ukuran batch saat melatih model neural network
+  - epochs: Jumlah iterasi pelatihan model
+  3. Loss Function and Optimizer
+  - Binary Crossentropy sebagai fungsi loss
+  - Adam optimizer dengan learning rate 0,001
+  4. Top-N recommendation
+
+  ![CF RECOMENDATION](https://github.com/user-attachments/assets/9643a236-65cf-40d6-96cf-122f93b20bc3)
+
+
+**Kelebihan dan Kekurangan:**
 
 Model 1: Content-Based Filtering
 - Kelebihan: Efektif untuk merekomendasikan restoran baru berdasarkan preferensi saat ini, memberikan rekomendasi relevan dengan cepat.
@@ -169,49 +182,56 @@ Model 2: Collaborative Filtering
 - Kelebihan: Rekomendasi personal dan akurat, mengatasi cold start problem untuk pengguna baru, mampu merekomendasikan item populer.
 - Kekurangan: Membutuhkan data rating yang banyak, sulit untuk merekomendasikan item baru (cold start problem untuk item), rentan terhadap bias popularitas.
 
-
 ## Evaluation
 
-
 ### Evaluasi:
-1. Metode Evaluasi Content-Based Filtering dilakukan secara kualitatif:
+1. Metode Evaluasi Content-Based Filtering dilakukan secara kualitatif dan menggunakan Presisi:
 - Melalui pengamatan hasil rekomendasi: Dengan memberikan input nama restoran, sistem akan memberikan rekomendasi restoran lain yang memiliki kesamaan fitur (jenis masakan).
 - Membandingkan rekomendasi dengan preferensi pengguna: Pengguna dapat menilai relevansi rekomendasi yang dihasilkan berdasarkan pengetahuan mereka tentang preferensi pengguna yang diwakili oleh restoran input.
+- Presisi, mengukur seberapa banyak rekomendasi yang relevan dibandingkan dengan total rekomendasi yang diberikan.
 
 2. Metode Evaluasi Content-Based Filtering dilakukan menggunakan metrik RMSE:
 - RMSE mengukur rata-rata perbedaan antara rating yang diprediksi oleh model dan rating aktual yang diberikan oleh pengguna. Semakin rendah nilai RMSE, semakin akurat model dalam memprediksi rating.
 - Rumus RMSE = akar kuadrat dari [(Σ(prediksi - aktual)^2) / n]
 
-## Visualisasi Prediksi
-
-### Content Based Filtering
-
-![Recommendation Content Based Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Recommendation%20Content%20Based%20Filtering)
-
-### Collaborative Filtering
-
-![RMSE Collaborative Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/RMSE)
-
-
 ### Hasil Evaluasi:
-
 
 ### 1. Content-Based Filtering
 
-![Hasil Content-Based Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Hasil%20Content-Based%20Filtering)
+![Hasil CBF](https://github.com/user-attachments/assets/e2f78587-0e94-47a9-a4ae-3e37bd1c507f)
+
 
 ### 2. Collaborative Filtering
+
+![RMSE Collaborative Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/RMSE)
+
 
 | Dataset | RMSE |
 |---|---|
 | Training | 0.23 |
 | Validasi | 0.34 |
 
-
-Setelah melakukan evaluasi performa kedua model menggunakan metrik Precision dan RMSE, didapatkan hasil yaitu Model Content-Based Filtering menghasilkan rekomendasi yang relevan dengan preferensi pengguna berdasarkan kategori masakan. Model Collaborative Filtering menghasilkan RMSE sebesar 0.23 pada data training dan 0.34 pada data validasi. Dari hasil ini, Collaborative Filtering lebih unggul dalam hal akurasi prediksi rating berdasarkan nilai RMSE yang relatif rendah, sedangkan Content-Based Filtering lebih unggul dalam hal memberikan rekomendasi yang relevan berdasarkan kesamaan fitur.
-
-
-**Kesimpulan:** 
+### Based On 2 Model:
 
 
-Meskipun Content-Based Filtering dirancang untuk memberikan rekomendasi yang relevan, pada dataset ini Collaborative Filtering memberikan hasil yang lebih akurat dalam memprediksi rating restoran jika ditinjau dari RMSE. Namun, Content-Based Filtering menunjukkan performa yang lebih baik dalam memberikan rekomendasi yang relevan dengan preferensi pengguna jika ditinjau dari kesamaan fitur. Oleh karena itu, pemilihan model terbaik bergantung pada prioritas Anda, apakah ingin meminimalkan rata-rata kesalahan (RMSE) atau memaksimalkan relevansi rekomendasi (kesamaan fitur). Jika ingin meminimalkan rata-rata kesalahan, Collaborative Filtering adalah pilihan yang lebih baik. Jika ingin memaksimalkan relevansi rekomendasi, Content-Based Filtering adalah pilihan yang lebih baik.
+| Fitur | Content-Based Filtering | Collaborative Filtering |
+|---|---|---|
+| Dasar Rekomendasi | Kesamaan fitur (kategori masakan) | Rating pengguna lain |
+| Metrik Evaluasi | Presisi | RMSE |
+| Hasil | Presisi: 80% | RMSE (data training): 0.23 <br> RMSE (data validasi): 0.34 |
+| Keunggulan | Relevansi rekomendasi | Akurasi prediksi rating |
+| Kelemahan | Akurasi prediksi rating | Relevansi rekomendasi |
+
+
+Conclusion:
+
+
+Berdasarkan hasil evaluasi, dapat disimpulkan bahwa:
+
+- Content-Based Filtering lebih unggul dalam memberikan rekomendasi yang relevan dengan preferensi pengguna berdasarkan kategori masakan yang disukai. Hal ini ditunjukkan dengan nilai presisi yang tinggi (80%), yang berarti 4 dari 5 restoran yang direkomendasikan memiliki kategori masakan yang sama dengan restoran yang disukai pengguna.
+
+- Collaborative Filtering lebih unggul dalam hal akurasi prediksi rating, yang ditunjukkan dengan nilai RMSE yang relatif rendah (0.23 pada data training dan 0.34 pada data validasi). Ini berarti model ini mampu memprediksi rating restoran dengan kesalahan yang relatif kecil.
+Pemilihan model terbaik bergantung pada prioritas Anda:
+
+- Jika ingin meminimalkan rata-rata kesalahan prediksi rating, Collaborative Filtering adalah pilihan yang lebih baik.
+- Jika ingin memaksimalkan relevansi rekomendasi berdasarkan kesamaan fitur, Content-Based Filtering adalah pilihan yang lebih baik.
