@@ -59,14 +59,45 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 
 ## Data Preparation
 
-1. Menggabungkan Data Restoran: Untuk membentuk dataset restoran yang komprehensif agar sistem dapat mempertimbangkan berbagai fitur restoran.
-2. Menggabungkan Data Pengguna: Untuk membentuk dataset pengguna yang komprehensif agar sistem dapat memahami preferensi dan karakteristik pengguna.
-3. Menggabungkan Data Rating: Untuk menghubungkan rating pengguna dengan restoran dan pengguna yang sesuai, sehingga sistem dapat mempelajari pola preferensi.
-4. Missing Values: Untuk mencegah kesalahan dalam pemodelan dan mengurangi akurasi rekomendasi.
-5. Data Duplikat: Untuk mencegah bias dalam pemodelan dan menghasilkan rekomendasi yang akurat.
-6. Penyamaan Jenis Masakan: Untuk memastikan konsistensi data dan mencegah sistem menganggap jenis masakan yang sama sebagai entitas yang berbeda.
-7. Encoding Data: Untuk mengubah data kategorikal menjadi numerik agar dapat diproses oleh model machine learning (khusus Collaborative Filtering).
-8. Normalisasi Data: Untuk meningkatkan kinerja model dan mencegah bias akibat perbedaan skala antar fitur (khusus Collaborative Filtering).
+1. Data Preparation
+- Handling Missing Value
+  
+Penjelasan:
+Data yang telah diintegrasi, mungkin saja terdapat missing value. Missing value dapat disebabkan oleh berbagai faktor, seperti kesalahan input data atau data yang tidak tersedia. Pada tahap ini, missing value akan diatasi dengan cara:
+  1.	Melakukan pengecekan missing value dengan fungsi isnull().
+  2.	Membersihkan missing value dengan fungsi dropna().
+  3.	Melihat kembali missing value pada variabel all_resto_clean.
+- Handling Duplicates
+  
+Penjelasan:
+Data yang telah diintegrasi, mungkin saja terdapat data duplikat. Data duplikat dapat menyebabkan bias dalam data. Pada tahap ini, data duplikat diatasi dengan cara:
+  1.	Mengurutkan data restoran berdasarkan 'placeID' untuk memudahkan identifikasi duplikat.
+  2.	Membuang data duplikat pada kolom 'placeID' dengan fungsi drop_duplicates(). Hal ini dilakukan karena dalam sistem rekomendasi, satu restoran idealnya memiliki satu kategori masakan.
+- Handling Outliers
+
+Penjelasan:
+Outliers merupakan data yang memiliki nilai yang jauh berbeda dari data lainnya. Outliers dapat memengaruhi hasil pemodelan. Pada proyek ini, outliers tidak diatasi karena data yang digunakan tidak terlalu banyak dan fokus utamanya adalah pada kategori masakan dan rating. Penanganan outlier bisa dipertimbangkan jika dataset lebih besar dan kompleks.
+
+2. Content Based Filtering Preparation
+- Ekstraksi Fitur TF-IDF
+
+Penjelasan:
+TF-IDF digunakan untuk mengidentifikasi representasi fitur penting dari setiap kategori masakan. Proses ini mengubah teks kategori masakan menjadi representasi numerik yang dapat dipahami oleh model machine learning.
+  1.	Fungsi tfidfvectorizer() dari library sklearn digunakan untuk menghitung nilai TF-IDF.
+  2.	Data 'cuisine' digunakan sebagai input untuk TF-IDF Vectorizer.
+  3.	Matrix TF-IDF yang dihasilkan digunakan untuk menghitung cosine similarity antar restoran berdasarkan kategori masakan mereka.
+- Data Cleaning
+  
+Penjelasan:
+  1.	Menyamakan kategori masakan, misal kategori 'Game' pada restoran KFC diubah menjadi 'American' agar konsisten.
+  2.	Membuang data duplikat pada kolom 'PlaceID' agar setiap restoran hanya memiliki satu representasi dalam data.
+- Membuat Dictianory resto_new
+
+Penjelasan:
+  1.	Data 'resto_id', 'resto_name', dan 'cuisine' dikonversi menjadi list.
+  2.	List tersebut digunakan untuk membuat dictionary resto_new dengan 'id', 'resto_name', dan 'cuisine' sebagai key.
+  3.	Dictionary resto_new digunakan sebagai input untuk pemodelan content-based filtering.
+
   
 ## Modeling
 ### Model 1: Content-Based Filtering
