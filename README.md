@@ -2,13 +2,10 @@
 
 ## Domain Proyek
 
-**Latar Belakang:** Restoran menjadi salah satu sektor industri yang terus berkembang seiring dengan meningkatnya gaya hidup konsumtif masyarakat. Dengan banyaknya pilihan restoran yang tersedia, konsumen sering kali mengalami kesulitan dalam menentukan tempat makan yang sesuai dengan preferensi mereka. Oleh karena itu, sistem rekomendasi restoran berbasis machine learning menjadi solusi yang dapat membantu pengguna dalam memilih restoran yang paling sesuai dengan selera mereka.
+- **Latar Belakang:** Restoran menjadi salah satu sektor industri yang terus berkembang seiring dengan meningkatnya gaya hidup konsumtif masyarakat. Dengan banyaknya pilihan restoran yang tersedia, konsumen sering kali mengalami kesulitan dalam menentukan tempat makan yang sesuai dengan preferensi mereka. Oleh karena itu, sistem rekomendasi restoran berbasis machine learning menjadi solusi yang dapat membantu pengguna dalam memilih restoran yang paling sesuai dengan selera mereka.
 
-**Mengapa dan Bagaimana Masalah Harus Diselesaikan:** Sistem rekomendasi dapat meningkatkan pengalaman pengguna dengan memberikan saran restoran berdasarkan ulasan, rating, dan preferensi individu. Dengan pendekatan berbasis machine learning, sistem ini dapat secara otomatis menyesuaikan rekomendasi seiring dengan perubahan preferensi pengguna, sehingga meningkatkan kepuasan pelanggan dan potensi peningkatan pendapatan bagi restoran yang direkomendasikan.
+- **Mengapa dan Bagaimana Masalah Harus Diselesaikan:** Sistem rekomendasi dapat meningkatkan pengalaman pengguna dengan memberikan saran restoran berdasarkan ulasan, rating, dan preferensi individu. Dengan pendekatan berbasis machine learning, sistem ini dapat secara otomatis menyesuaikan rekomendasi seiring dengan perubahan preferensi pengguna, sehingga meningkatkan kepuasan pelanggan dan potensi peningkatan pendapatan bagi restoran yang direkomendasikan.
 
-**Referensi**:
-
-[Restaurant Recommendation System Based on User Ratings with Collaborative Filtering](https://www.researchgate.net/publication/350084914_Restaurant_Recommendation_System_Based_on_User_Ratings_with_Collaborative_Filtering)
 
 ## Business Understanding
 
@@ -137,7 +134,7 @@ Berdasarkan matriks kesamaan, sistem merekomendasikan restoran yang paling mirip
   4. Top-N recommendation
 
 ![Recommendation Content Based Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Recommendation%20Content%20Based%20Filtering)
-
+  
   - Insight: Dari 5 restoran yang direkomendasikan, 4 di antaranya memiliki jenis masakan 'American', sama seperti KFC. Dari rekomendasi yang diberikan memang relevan dengan preferensi pengguna (dalam hal ini, preferensi terhadap jenis masakan 'American').
 
 ### Model 2: Collaborative Filtering
@@ -238,3 +235,8 @@ Pemilihan model terbaik bergantung pada prioritas Anda:
 
 - Jika ingin meminimalkan rata-rata kesalahan prediksi rating, Collaborative Filtering adalah pilihan yang lebih baik.
 - Jika ingin memaksimalkan relevansi rekomendasi berdasarkan kesamaan fitur, Content-Based Filtering adalah pilihan yang lebih baik.
+
+**Referensi**:
+
+[Restaurant Recommendation System Based on User Ratings with Collaborative Filtering](https://www.researchgate.net/publication/350084914_Restaurant_Recommendation_System_Based_on_User_Ratings_with_Collaborative_Filtering)
+
