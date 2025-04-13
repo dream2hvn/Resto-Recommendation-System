@@ -138,6 +138,7 @@ Berdasarkan matriks kesamaan, sistem merekomendasikan restoran yang paling mirip
 
 ![Recommendation Content Based Filtering](https://github.com/dream2hvn/Resto-Recommendation-System/blob/main/Recommendation%20Content%20Based%20Filtering)
 
+  - Insight: Dari 5 restoran yang direkomendasikan, 4 di antaranya memiliki jenis masakan 'American', sama seperti KFC. Dari rekomendasi yang diberikan memang relevan dengan preferensi pengguna (dalam hal ini, preferensi terhadap jenis masakan 'American').
 
 ### Model 2: Collaborative Filtering
 Collaborative Filtering digunakan untuk merekomendasikan restoran berdasarkan rating pengguna lain yang memiliki preferensi serupa. Metode ini memanfaatkan data rating pengguna untuk mengidentifikasi pola preferensi dan menghasilkan rekomendasi. Dalam proyek ini, Collaborative Filtering dipilih karena kemampuannya untuk memberikan rekomendasi yang personal dan akurat.
@@ -170,6 +171,7 @@ Collaborative Filtering digunakan untuk merekomendasikan restoran berdasarkan ra
 
   ![CF RECOMENDATION](https://github.com/user-attachments/assets/9643a236-65cf-40d6-96cf-122f93b20bc3)
 
+  - Insight: Hasil di atas adalah rekomendasi untuk user dengan id U1089. Dari output tersebut, kita dapat membandingkan antara Resto with high ratings from user dan Top 10 resto recommendation untuk user.
 
 **Kelebihan dan Kekurangan:**
 
