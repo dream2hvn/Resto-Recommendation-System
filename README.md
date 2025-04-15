@@ -50,7 +50,6 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 
 ### Data Preprocessing/ Checking
 
-- Menggabungkan Data: Informasi restoran dan pengguna dari berbagai file CSV digabungkan menjadi satu dataframe. Data rating juga digabungkan dengan informasi restoran (nama, masakan) untuk memperkaya data.
 - Missing Value: Terdapat banyak missing value pada sebagian besar fitur. Hanya fitur userID, placeID, rating, food_rating, dan service_rating saja yang memiliki 0 missing value. Fitur-fitur lain, seperti Rcuisine, memiliki missing value dalam jumlah yang signifikan.
 - Data Duplikat: Terdapat data duplikat pada beberapa fitur, seperti placeID. Data duplikat ini perlu dihapus untuk menghindari bias dalam data.
 - Inkonsistensi Data: Terdapat inkonsistensi data pada beberapa fitur, seperti Rcuisine. Misalnya, restoran KFC memiliki dua kategori masakan yang berbeda, yaitu Game dan American. Inkonsistensi data ini perlu diperbaiki agar data menjadi lebih konsisten.
@@ -58,6 +57,11 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 ## Data Preparation
 
 1. Data Preparation
+- Menggabungkan Data
+  
+Penjelasan:
+Informasi restoran dan pengguna dari berbagai file CSV digabungkan menjadi satu dataframe. Data rating juga digabungkan dengan informasi restoran (nama, masakan) untuk memperkaya data.
+
 - Handling Missing Value
   
 Penjelasan:
@@ -65,18 +69,29 @@ Data yang telah diintegrasi, mungkin saja terdapat missing value. Missing value 
   1.	Melakukan pengecekan missing value dengan fungsi isnull().
   2.	Membersihkan missing value dengan fungsi dropna().
   3.	Melihat kembali missing value pada variabel all_resto_clean.
+
 - Handling Duplicates
   
 Penjelasan:
 Data yang telah diintegrasi, mungkin saja terdapat data duplikat. Data duplikat dapat menyebabkan bias dalam data. Pada tahap ini, data duplikat diatasi dengan cara:
   1.	Mengurutkan data restoran berdasarkan 'placeID' untuk memudahkan identifikasi duplikat.
   2.	Membuang data duplikat pada kolom 'placeID' dengan fungsi drop_duplicates(). Hal ini dilakukan karena dalam sistem rekomendasi, satu restoran idealnya memiliki satu kategori masakan.
-- Handling Outliers
-
-Penjelasan:
-Outliers merupakan data yang memiliki nilai yang jauh berbeda dari data lainnya. Outliers dapat memengaruhi hasil pemodelan. Pada proyek ini, outliers tidak diatasi karena data yang digunakan tidak terlalu banyak dan fokus utamanya adalah pada kategori masakan dan rating. Penanganan outlier bisa dipertimbangkan jika dataset lebih besar dan kompleks.
 
 2. Content Based Filtering Preparation
+
+- Data Cleaning
+  
+Penjelasan:
+  1.	Menyamakan kategori masakan, misal kategori 'Game' pada restoran KFC diubah menjadi 'American' agar konsisten.
+  2.	Membuang data duplikat pada kolom 'PlaceID' agar setiap restoran hanya memiliki satu representasi dalam data.
+
+- Membuat Dictionary resto_new
+
+Penjelasan:
+  1.	Data 'resto_id', 'resto_name', dan 'cuisine' dikonversi menjadi list.
+  2.	List tersebut digunakan untuk membuat dictionary resto_new dengan 'id', 'resto_name', dan 'cuisine' sebagai key.
+  3.	Dictionary resto_new digunakan sebagai input untuk pemodelan content-based filtering.
+
 - Ekstraksi Fitur TF-IDF
 
 Penjelasan:
@@ -84,26 +99,16 @@ TF-IDF digunakan untuk mengidentifikasi representasi fitur penting dari setiap k
   1.	Fungsi tfidfvectorizer() dari library sklearn digunakan untuk menghitung nilai TF-IDF.
   2.	Data 'cuisine' digunakan sebagai input untuk TF-IDF Vectorizer.
   3.	Matrix TF-IDF yang dihasilkan digunakan untuk menghitung cosine similarity antar restoran berdasarkan kategori masakan mereka.
-- Data Cleaning
-  
-Penjelasan:
-  1.	Menyamakan kategori masakan, misal kategori 'Game' pada restoran KFC diubah menjadi 'American' agar konsisten.
-  2.	Membuang data duplikat pada kolom 'PlaceID' agar setiap restoran hanya memiliki satu representasi dalam data.
-- Membuat Dictianory resto_new
-
-Penjelasan:
-  1.	Data 'resto_id', 'resto_name', dan 'cuisine' dikonversi menjadi list.
-  2.	List tersebut digunakan untuk membuat dictionary resto_new dengan 'id', 'resto_name', dan 'cuisine' sebagai key.
-  3.	Dictionary resto_new digunakan sebagai input untuk pemodelan content-based filtering.
-
 
 3.Collaborative Filtering Preparation
+
 - Encode Label
 
 Penjelasan:
 Fitur 'user' dan 'placeID' diubah menjadi index integer agar dapat diproses oleh model collaborative filtering.
   1.	Encoding dilakukan menggunakan dictionary, di mana setiap 'userID' dan 'placeID' unik dipetakan ke index integer.
   2.	Data yang telah di-encode digunakan untuk proses training model.
+
 - Split Data
 
 Penjelasan:
