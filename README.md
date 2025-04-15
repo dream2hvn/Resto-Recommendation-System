@@ -56,7 +56,7 @@ Sumber Data: Dataset yang digunakan berasal dari UCI Machine Learning Repository
 
 ## Data Preparation
 
-1. Data Preparation
+### Data Preparation
 - Menggabungkan Data
   
 Penjelasan:
@@ -77,7 +77,7 @@ Data yang telah diintegrasi, mungkin saja terdapat data duplikat. Data duplikat 
   1.	Mengurutkan data restoran berdasarkan 'placeID' untuk memudahkan identifikasi duplikat.
   2.	Membuang data duplikat pada kolom 'placeID' dengan fungsi drop_duplicates(). Hal ini dilakukan karena dalam sistem rekomendasi, satu restoran idealnya memiliki satu kategori masakan.
 
-2. Content Based Filtering Preparation
+### Content Based Filtering Preparation
 
 - Data Cleaning
   
@@ -100,7 +100,7 @@ TF-IDF digunakan untuk mengidentifikasi representasi fitur penting dari setiap k
   2.	Data 'cuisine' digunakan sebagai input untuk TF-IDF Vectorizer.
   3.	Matrix TF-IDF yang dihasilkan digunakan untuk menghitung cosine similarity antar restoran berdasarkan kategori masakan mereka.
 
-3.Collaborative Filtering Preparation
+### Collaborative Filtering Preparation
 
 - Encode Label
 
